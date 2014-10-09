@@ -1,0 +1,49 @@
+<?PHP
+$AM_url_webservice="http://neonline.emol.com/mapas/WS_MAPAS/webservices_mapas.php?wsdl";
+//$AM_url_webservice="http://192.168.52.106/api_mapa/api_pabellon_google/webservices_mapas.php?wsdl";
+//$AM_url_webservice="http://ws.mapas.neonline.cl/webservices_mapas.php?wsdl";
+//Navegadores
+$AM_path_base="http://www.emol.com/guia_servicios/";
+$AM_path_base_xygo="http://www.xygo.com";
+$AM_nav_id_servicio="id";
+$AM_nav_id_segmento="highlight";
+$AM_NameNav_id_segmento="highlightnavigator";
+$AM_nav_id_via_region="stringnav2";//id tipo via y id_region
+$AM_nav_comuna="stringnav1";//id tipo via y id_region
+$AM_nav_nomCateg="categorization";
+$AM_nav_pais="stringnav5";
+$AM_zoom_dir=15;
+$AM_palb_claves_serv="cajeros|bancos";
+$AM_radio_pdi="";
+$AM_radio_direccion="";
+$AM_path_icon_pdi="img/icons/neddle_interest.png";
+$AM_path_icon_dir="img/icons/neddle_direction.png";
+$AM_path_icon_pdi_secundario="img/icons/neddle_interest.png";
+$AM_path_icon_dir_secundario="img/icons/neddle_direction.png";
+$AM_path_icon_single_dir="img/icons/pinchos_01.png";
+$AM_path_icon_single_pdi="img/icons/pinchos_02.png";
+$AM_path_path_class_pdi="class_mark_pdi_";
+$AM_path_path_class_dir="class_mark_dir_";
+$AM_path_path_class_stv="class_mark_stv_";
+$AM_path_path_icon_size="17,20";
+$AM_categoria_street="street view";
+//$AM_path_path_sitio="http://localhost/mapas_emol_v2/";
+$AM_path_path_sitio="http://neonline.emol.com/mapas/mapas_emol_v2/";
+$AM_path_path_sitio_xygo="http://neonline.emol.com/mapas/mapas_emol_v2/index_xygo.php";
+//$AM_path_path_sitio="http://mapas.emol.com/";
+$AM_icono_serv_policy="img/icons/policy.png";
+$AM_icono_serv_cajero="img/icons/redbanc.png";
+$AM_icono_serv_hospital="img/icons/hospital.png";
+$AM_icono_serv_hotel="img/icons/hotel.png";
+$AM_icono_serv_cdelectores="img/icons/clectores.png";
+$AM_icono_serv_street="img/mono_streetview.png";
+$AM_icono_serv_arreglo="".$AM_icono_serv_policy."|".$AM_icono_serv_cajero."|".$AM_icono_serv_hospital."|".$AM_icono_serv_hotel."|".$AM_icono_serv_cdelectores."";
+$AM_servicios="carabineros|cajeros|hospital|hotel|club de lectores";
+$AM_tipoMarcador_servicios="3|3|3|3|3";
+//$AM_path_link="http://neonline.emol.com/mapas/mapas_emol_v2/";
+$AM_path_link="http://192.168.52.106/mapas_emol_v2/";
+$AM_path_link_xygo="http://neonline.emol.com/mapas/mapas_emol_v2/index_xygo.php";
+$AM_path_print="print.php";
+$AM_path_print_xygo="print_xygo.php";
+
+?>

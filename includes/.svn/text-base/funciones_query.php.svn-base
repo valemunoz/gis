@@ -1,0 +1,223 @@
+<?
+require_once('config.php');
+define("AM_WS",$AM_url_webservice);
+define("AM_ZOOM_DIR",$AM_zoom_dir); 
+define("AM_PATH_BASE",$AM_path_base);
+define("AM_PATH_BASE_XYGO",$AM_path_base_xygo);
+define("AM_PALAB_CLAVE",$AM_palb_claves_serv);
+define("AM_RADIO_PDI",$AM_radio_pdi);
+define("AM_RADIO_DIREC",$AM_radio_direccion);
+define("AM_PATH_ICON_PDI",$AM_path_icon_pdi);
+define("AM_PATH_ICON_DIR",$AM_path_icon_dir);
+define("AM_PATH_CLASS_PDI",$AM_path_path_class_pdi);
+define("AM_PATH_CLASS_DIR",$AM_path_path_class_dir);
+define("AM_PATH_ICON_PDI_SEC",$AM_path_icon_pdi_secundario);
+define("AM_PATH_ICON_DIR_SEC",$AM_path_icon_dir_secundario);
+define("AM_PATH_ICON_SIZE",$AM_path_path_icon_size);
+define("AM_PATH_ICON_SINGLE_DIR",$AM_path_icon_single_dir);
+define("AM_PATH_ICON_SINGLE_PDI",$AM_path_icon_single_pdi);
+define("AM_PATH_CLASS_STV",$AM_path_path_class_stv);
+define("AM_CATEGORIA_STV",$AM_categoria_street);
+define("AM_PATH_SITE",$AM_path_path_sitio);
+define("AM_PATH_SITE_XYGO",$AM_path_path_sitio_xygo);
+
+define("AM_PATH_LINK",$AM_path_link);
+define("AM_PATH_LINK_XYGO",$AM_path_link_xygo);
+define("AM_PATH_PRINT",$AM_path_print);
+define("AM_PATH_PRINT_XYGO",$AM_path_print_xygo);
+
+define("AM_ICON_POLICY",$AM_icono_serv_policy);
+define("AM_ICON_CAJERO",$AM_icono_serv_cajero);
+define("AM_ICON_HOSPITAL",$AM_icono_serv_hospital);
+define("AM_ICON_HOTEL",$AM_icono_serv_hotel);
+define("AM_ICON_CLECTORES",$AM_icono_serv_cdelectores);
+define("AM_SERVICIOS",$AM_servicios);
+define("AM_TIPMARCADOR_SERVICIOS",$AM_tipoMarcador_servicios);
+define("AM_ICON_SERV_ARR",$AM_icono_serv_arreglo);
+
+###################
+
+/*
+FUNCION: PRINCIPAL PARA LA BUSQUEDA DE DIRECCION en fast.. FUNCION MADRE.
+*/
+
+function BuscarDireccionFastXPais($direccion,$ini_hit,$num_hit,$pais,$coord,$radio)
+{
+
+	//$direccion= utf8_encode($direccion);
+	//$direccion=elimina_acentos(utf8_decode($direccion));
+  $direccion=str_replace(","," ",$direccion);
+	$url_webservice=AM_WS;
+  try {
+		$client = new SoapClient($url_webservice, array('trace' => true));
+	} catch (Exception $e) 
+	{
+		//echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:01";
+		try {
+			$client = new SoapClient($url_webservice, array('trace' => true));
+		} catch (Exception $e) {
+			echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:01";
+		}
+	}
+	try {
+
+		$xml_string =$client->BusDireccionFastInterGEOXPais($direccion,$ini_hit,$num_hit,$pais,$coord,$radio,1);
+	}catch (Exception $e) 
+	{
+		//echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:02";
+		try {
+
+			$xml_string =$client->BusDireccionFastInterGEOXPais($direccion,$ini_hit,$num_hit,$pais,$coord,$radio,1);
+		} catch (Exception $e) {
+			echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:02";
+		}
+	}
+	$xml_string->SearchResult;
+	
+	$xml_nav = simplexml_load_string($xml_string);
+	//print_r($xml_nav);
+	foreach ($xml_nav->MENSAJE as $rating) 
+	{
+		$mensaje=$rating;
+	}
+	
+	foreach ($xml_nav->HIT as $rating) 
+	{
+    
+	  $lista_resultados_id[]=$rating->ID_RES;
+    $lista_resultados[]=$rating->TEXTO;
+  	$lista_resultados_lat[]=$rating->LATITUD;
+   	$lista_resultados_lon[]=$rating->LONGITUD;
+   	$lista_resultados_tipo[]=$rating->TIPO;
+   	$lista_resultados_comuna[]=$rating->COMUNA;
+   	$lista_resultados_calle[]=$rating->CALLE;
+   	$lista_resultados_numero[]=$rating->NUMERO;
+   	$lista_resultados_segmento[]=$rating->SEGMENTO;
+   	$lista_resultados_idregion[]=$rating->IDREGION;
+   	$lista_resultados_interpolado[]=$rating->INTERPOLADO;
+   	$lista_resultados_distancia[]=$rating->DISTANCIA;
+   	$lista_resultados_rank[]=$rating->RANK;
+   	$tot_result=$rating->TOT_RESULT;
+
+	}
+
+	//return $xml_string_;
+	return array($lista_resultados,$lista_resultados_id,$lista_resultados_lat,$lista_resultados_lon,$lista_resultados_tipo,$mensaje,$lista_resultados_extr,$lista_resultados_comuna,$lista_resultados_calle,$lista_resultados_numero,$lista_resultados_segmento,$lista_resultados_idregion,$tot_result,$lista_resultados_interpolado,$lista_resultados_distancia,$lista_resultados_rank);
+}
+
+
+
+/*
+FUNCION: PRINCIPAL PARA LA BUSQUEDA DE PDI en fast.. FUNCION MADRE.
+*/
+
+function BuscarServFast($consulta,$ini_hit,$num_hit,$pais,$coord,$radio,$navegador)
+{
+  $consulta=str_replace(","," ",$consulta);
+	//$direccion= utf8_encode($direccion);
+	//$direccion=elimina_acentos(utf8_decode($direccion));
+
+	$url_webservice=AM_WS;
+  try {
+		$client = new SoapClient($url_webservice, array('trace' => true));
+	}catch (Exception $e) 
+	{		
+		//echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:03";
+		try {
+			$client = new SoapClient($url_webservice, array('trace' => true));
+		} catch (Exception $e) {
+			echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:03";
+		}
+	}
+	try {
+		
+		$xml_string =$client->ServDatosxRadioXPaisJoin($consulta,$ini_hit,$num_hit,"".$coord."",$radio,$navegador,$pais);
+	}catch (Exception $e) 
+	{
+			//echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:06";
+			try {
+		
+				$xml_string =$client->ServDatosxRadioXPaisJoin($consulta,$ini_hit,$num_hit,"".$coord."",$radio,$navegador,$pais);
+			} catch (Exception $e) {
+				echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:06";
+			}
+	}
+	$xml_string->SearchResult;
+	
+	$xml_nav = simplexml_load_string($xml_string);
+	//print_r($xml_nav);
+	foreach ($xml_nav->pois as $rating) 
+	{
+		$mensaje=$rating;
+	}
+	$tot_result=$xml_nav->total;
+	foreach ($xml_nav->poi as $rating) 
+	{
+    
+		$lista_resultados_id[]=$rating->poiid;
+    $lista_resultados_lat[]=$rating->latitud;
+   	$lista_resultados_lon[]=$rating->longitud;
+   	$lista_resultados_comuna[]=$rating->comuna;
+   	$lista_resultados_calle[]=$rating->calle;
+   	$lista_resultados_numero[]=$rating->num_muni;
+   	$lista_resultados_id_region[]=$rating->id_region;
+   	$lista_resultados_distancia[]=$rating->distancia;
+   	$lista_resultados_nombre[]=$rating->name;
+		$lista_resultados_nom_categ[]=$rating->category;
+		$lista_resultados_obsv[]=$rating->observaciones;
+		$lista_resultados_rank[]=$rating->rank;
+		$lista_resultados_telefono[]=$rating->telefono;
+  
+
+	}
+
+	//return $xml_string_;
+	return array($lista_resultados_id,$lista_resultados_lat,$lista_resultados_lon,$lista_resultados_comuna,$mensaje,$lista_resultados_calle,$lista_resultados_numero,$lista_resultados_id_region,$lista_resultados_distancia,$tot_result,$lista_resultados_nombre,$lista_resultados_nom_categ,$lista_resultados_obsv,$lista_resultados_rank,$lista_resultados_telefono);
+}
+function elimina_acentos($cadena)
+{
+	
+	$tofind = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
+	$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
+	return(strtr($cadena,$tofind,$replac));
+}
+function getRegiones()
+{
+	$url_webservice=AM_WS;
+  try {
+		$client = new SoapClient($url_webservice, array('trace' => true));
+	} catch (Exception $e) {
+		echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:04";
+	}
+	try {
+		
+		$xml_string =$client->getListaRegion2();
+	} catch (Exception $e) {
+		echo "Ha ocurrido un error interno. Por favor, vuelva a intentar. err:05";
+	}
+	$xml_string->SearchResult;
+	
+	$xml_nav = simplexml_load_string($xml_string);
+	//print_r($xml_nav);
+	$id_regiones=$xml_nav->ID_REGION;
+  $nom_regiones=$xml_nav->REGION;
+	$id_regiones_arr=explode("|",$id_regiones);
+	$nom_regiones_arr=explode("|",$nom_regiones);
+	
+	return array($id_regiones_arr,$nom_regiones_arr);
+}
+function getNomRegion($id_reg,$id_regiones_arr,$nom_regiones_arr)
+{
+	$i=0;
+	foreach($id_regiones_arr as $reg)
+	{
+		
+		if(trim(strtolower($reg))==trim(strtolower($id_reg)))
+		{
+			$nom_reg=$nom_regiones_arr[$i];
+		}
+		$i++;
+	}
+	return $nom_reg;
+}
+?>

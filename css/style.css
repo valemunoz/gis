@@ -1,0 +1,174 @@
+#mapa
+{
+	height:500px !important;
+	width:100% !important;
+	border: 1px solid #DDDDDD;
+	
+	
+	float:left !important;
+	border-radius:5px !important;
+}
+#query
+{
+	width:300px !important;
+}
+.radio_orden
+{
+	color:white !important;
+}
+#radio_fil,#radio_censo , #min_iso, #mts_antena
+{
+	border: 1 dashed #2FA4E7;
+    border-radius: 2px;
+    font-size: 16px;
+    
+    height: 30px;
+    color:#9A9A9A;
+    margin-top: 5px;
+    outline: medium none;
+    padding: 5px;
+    width: 50px;
+}
+#resultado_mapInt , #contenido_cuatrob
+{
+	max-height:300px !important;	
+	text-align:left;	
+	width:95% !important;
+	overflow-y:auto;
+}
+
+#list {
+    
+    list-style: none outside none;
+}
+#list_puntos {
+    
+    list-style: none outside none;
+    line-height: 3em !important;
+}
+#popup_nativo
+{
+	z-index:99999 !important;
+}
+
+#pop_titulo1
+{
+	 border-bottom: 1px solid #7EB6E2;
+    color: #1F5988;
+    font-size: 12px;
+    font-weight: bold;
+	
+}
+#pop_titulo2
+{
+	  font-size: 12px;
+   
+}
+#pop_titulo3
+{
+	  font-size: 10px;
+   
+}
+#pop_titulo4
+{
+		padding:5px;
+	  font-size: 10px;
+    border:1px solid #7EB6E2;
+    border-radius:5px;
+    margin-top:5px;
+}
+
+.lista_poli
+{
+	line-height: 1.3em;
+	border-bottom: 1px solid #7EB6E2;
+	width:500px;
+	cursor:pointer;
+	font-weight: bold;
+}
+.tit3
+{
+	  font-size: 10px;
+   
+}
+.mano
+{
+	cursor:pointer;
+}
+.img_simple
+{
+	margin-top:4px !important;
+	margin-left:5px;
+	position:relative;
+	cursor:pointer;
+}
+
+.txt_ejemplo
+{
+	font-size:10px;
+	font-weight: bold;
+	color:#ACACAC;
+}
+#popup_web
+{
+	display: none;
+}
+#popup_web {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9001;
+    
+}
+.content-popup {
+	background-color:#EEEEEE;
+    margin:0px auto;
+    margin-top:200px;
+    padding:10px;
+    width:250px;
+    min-height:130px;
+    border-radius:7px;
+    opacity:0.8;    
+    box-shadow: 0 2px 5px #666666;
+    font-size:13px;
+    font-weight:bold;
+}
+
+#close_web {
+    position:relative;
+    float:right;
+}
+.cont_web
+{
+	text-align:center;
+	padding:20px;
+
+	width:180px;
+}
+
+
+.img_control_off
+{
+	cursor:pointer;
+	filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */ 
+
+filter: gray; /* IE6-9 */ 
+
+-webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */ 
+}
+
+.img_control_on
+{
+	cursor:pointer;
+	filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0'/></filter></svg>#grayscale"); 
+
+-webkit-filter: grayscale(0%); 
+}
+
+#img_header
+{
+	width:164px !important;
+	height:31px !important;
+	margin-top:-12px !important;
+}
