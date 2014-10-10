@@ -225,8 +225,14 @@ var DRAG_LON,DRAG_LAT;
       );
 	
 	var query=$.trim(document.getElementById("query").value);
-	var radio=$.trim(document.getElementById("radio_fil").value);
-	var mis_poli=$.trim(document.getElementById("mis_poli").value);
+	var radio=0;
+	var mis_poli;
+ try
+ {
+	radio=$.trim(document.getElementById("radio_fil").value);
+	mis_poli=$.trim(document.getElementById("mis_poli").value);
+	}catch(e){}
+	
 	if(query!="" && (radio=="" || $.isNumeric(radio)))
 	{
 		showMensaje("Buscando...<br><img src='images/load_central.gif'>");
@@ -911,3 +917,10 @@ function opcBus(tipo)
 					);  
 }
 
+function imprimirMapa()
+{
+	 w=window.open();
+	 w.document.write($('#mapa').html());
+	 w.print();
+	 w.close();
+}

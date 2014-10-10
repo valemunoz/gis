@@ -100,7 +100,7 @@ if($estado_sesion!=0)
             <ul class="collapse navbar-collapse nav navbar-nav top-menu">
                 
                 <li class="dropdown" id="list_opc_bus">
-                    <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Direcci&oacute;n <span
+                    <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon glyphicon-ok"></i> Direcci&oacute;n <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         
@@ -117,7 +117,7 @@ if($estado_sesion!=0)
                 </li>
                 <li>
                     
-                        <input  autocomplete=off placeholder="Carmen 443 santiago/Bancos" class="search-query form-control col-md-10" id="query" name="query" onKeyPress="enterpressalert(event, this,1);"  type="text"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="buscar();">Buscar</button>
+                        <input  autocomplete=off placeholder="Carmen 443 santiago/Bancos" class="search-query form-control col-md-10" id="query" name="query" onKeyPress="enterpressalert(event, this,1);"  type="text"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="buscar();"><i class="glyphicon glyphicon-search"></i></button>
                         
                     
                 </li>
@@ -139,7 +139,55 @@ if($estado_sesion!=0)
                     <ul class="nav nav-pills nav-stacked main-menu">
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="index.php"><i class="glyphicon glyphicon-home"></i><span> Inicio</span></a>        </li>
-                        <li><a class="ajax-link" href="javascript:limpiarmapa();"><i class="glyphicon glyphicon-eye-open"></i><span id="md">Limpiar Mapa</span></a></li>
+                        <li><a class="ajax-link" href="javascript:limpiarmapa();"><i class="glyphicon glyphicon-eye-open"></i><span id="md"> Limpiar Mapa</span></a></li>
+                        <li><a class="ajax-link" href="javascript:imprimirMapa();"><i class="glyphicon glyphicon-print"></i><span id="md"> Imprimir Mapa</span></a></li>
+                                <li class="nav-header hidden-md">Opciones de B&uacute;squeda</li>
+
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i><span> Filtro Lugares</span></a>
+                           
+                            	<ul class="nav nav-pills nav-stacked">
+                            		 <?php
+														if(in_array("11", $_SESSION['us_apps']))
+														{
+														?>
+                            	    <li><h5>Radio <input type="text" id='radio_fil' name='radio_fil'>Mts</h5></li>
+                            	    <li><h5>Mis Poligonos <br><br>
+                            	    	<select class=input_form id=mis_poli name=mis_poli>					
+																		</Select></h5></li>
+																			<script>
+																			loadListaPoligono();
+																			</script>
+																		<?php
+                            }else
+                            {
+                            	echo "No esta autorizado";
+                            }
+                            ?>
+                            	</ul>                         
+                            
+                        </li>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i><span> Filtro Censo</span></a>
+                           
+                            	<ul class="nav nav-pills nav-stacked">
+                            		 <?php
+																	if(in_array("11", $_SESSION['us_apps']))
+																	{
+               										?>
+                            	    <li><h5>Radio:<input type="text" id='radio_censo' name='radio_censo'>Mts<h5></li>
+                            	    <li> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="getDataManz();">Buscar</button> 	    </li>
+																	<?php
+																	}else
+																	{
+																		echo "No esta autorizado";
+																	}
+																	?>	
+                            
+                            	</ul>                         
+                            
+                        </li>  
+                        <li class="nav-header hidden-md">Opciones Mapa</li> 
                          <li class="accordion">
                         	<a href="#" id="controles"><i class="glyphicon glyphicon-th"></i><span>Controles</span></a>
                         	<ul class="nav nav-pills nav-stacked" id="centro">
@@ -171,12 +219,12 @@ if($estado_sesion!=0)
 												if(in_array("7", $_SESSION['us_apps']))
 												{
 												?>	
-                        	<li><a class="ajax-link" href="javascript:activarPoligono();controlPoligono();"><i class="glyphicon glyphicon-edit"></i><span id="pd"> Dibujar Poligono</span></a>
+                        	<li><a class="ajax-link" href="javascript:activarPoligono();controlPoligono();"><i class="glyphicon glyphicon-pencil"></i><span id="pd"> Dibujar Poligono</span></a>
                         <?php
                       	}else
                       	{
                       		?>
-                      		<li><a class="ajax-link" href="javascript:alert('Control no activado');"><i class="glyphicon glyphicon-edit"></i><span> Dibujar Poligono</span></a>
+                      		<li><a class="ajax-link" href="javascript:alert('Control no activado');"><i class="glyphicon glyphicon-pencil"></i><span> Dibujar Poligono</span></a>
                       		<?php
                       	}
                         ?>
@@ -193,18 +241,18 @@ if($estado_sesion!=0)
 													$id_cat=implode(",",$id_cat);
 													$nom_cat=implode(",",$nom_cat);
 												?>	
-                        	<li><a class="ajax-link" href="javascript:activarMarcador('<?=$nom_cat?>','<?=$id_cat?>');"><i class="glyphicon glyphicon-plus"></i><span id="md">Nuevo Punto</span></a>
+                        	<li><a class="ajax-link" href="javascript:activarMarcador('<?=$nom_cat?>','<?=$id_cat?>');"><i class="glyphicon glyphicon-map-marker"></i><span id="md"> Nuevo Punto</span></a>
                         <?php
                       	}else
                       	{
                       		?>
-                      		<li><a class="ajax-link" href="javascript:alert('Control no activado');"><i class="glyphicon glyphicon-plus"></i><span>Nuevo Punto</span></a>
+                      		<li><a class="ajax-link" href="javascript:alert('Control no activado');"><i class="glyphicon glyphicon-map-marker"></i><span> Nuevo Punto</span></a>
                       		<?php
                       	}
                         ?>
                         </li>
                         <li class="accordion">
-                        	<a href="#"><i class="glyphicon glyphicon-edit"></i><span>Isocronas</span></a>
+                        	<a href="#"><i class="glyphicon glyphicon-edit"></i><span> Isocronas</span></a>
                         	<ul class="nav nav-pills nav-stacked">
                						<?php
 													if(in_array("2", $_SESSION['us_apps']))
@@ -230,7 +278,7 @@ if($estado_sesion!=0)
                         	</li>              	
                         	
                         	 <li class="accordion">
-                        	<a href="#"><i class="glyphicon glyphicon-eye-open"></i><span>Antenas</span></a>
+                        	<a href="#"><i class="glyphicon glyphicon-fullscreen"></i><span> Antenas</span></a>
                         	<ul class="nav nav-pills nav-stacked">
                						<?php
 													if(in_array("8", $_SESSION['us_apps']))
@@ -251,44 +299,7 @@ if($estado_sesion!=0)
                             	</ul> 
                         	</li>     
                         
-                        <li class="nav-header hidden-md">Opciones de B&uacute;squeda</li>
-
-                        <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Filtro Lugares</span></a>
-                           
-                            	<ul class="nav nav-pills nav-stacked">
-                            		 <?php
-														if(in_array("11", $_SESSION['us_apps']))
-														{
-														?>
-                            	    <li>Radio:<input type="text" id='radio_fil' name='radio_fil'>Mts</li>
-                            	    <li>Mis Poligonos <br>
-                            	    	<select class=input_form id=mis_poli name=mis_poli>					
-																		</Select></li>
-																			<script>
-																			loadListaPoligono();
-																			</script>
-																		<?php
-                            }else
-                            {
-                            	echo "No esta autorizado";
-                            }
-                            ?>
-                            	</ul>                         
-                            
-                        </li>
-                        <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Filtro Censo</span></a>
-                           
-                            	<ul class="nav nav-pills nav-stacked">
-               
-                            	    <li>Radio:<input type="text" id='radio_censo' name='radio_censo'>Mts</li>
-                            	    <li> <button type="button" class="btn btn-default" data-dismiss="modal" onclick="getDataManz();">Buscar</button> 	    </li>
-																		
-                            
-                            	</ul>                         
-                            
-                        </li>            	
+                         	
                         
                        
                         
@@ -392,10 +403,10 @@ if($estado_sesion!=0)
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" >
     <div class="box col-md-12">
         <div class="box-inner">
-            <div class="box-header well">
+            <div class="box-header well" >
                 <h2><i class="glyphicon glyphicon-globe"></i> Mapa</h2>
 
                 <div class="box-icon">

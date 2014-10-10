@@ -85,6 +85,7 @@
 	width:500px;
 	cursor:pointer;
 	font-weight: bold;
+	color:#AA9999 !important;
 }
 .tit3
 {
@@ -171,4 +172,56 @@ filter: gray; /* IE6-9 */
 	width:164px !important;
 	height:31px !important;
 	margin-top:-12px !important;
+}
+.link_dir
+{
+	color:#AA9999 !important;
+	font-weight: bold;
+}
+.input_form
+{
+	border: 1 dashed #AA9999;
+    border-radius: 5px;
+    font-size: 14px;    
+    height: 30px;
+    color:#9A9A9A;
+    margin-top: 5px;
+    outline: medium none;
+    padding: 5px;
+    width: 150px;
+}
+
+
+.box1
+{
+	display:none;
+	border: 0 dashed #000000;
+    border-radius: 2px;
+    font-size: 14px;
+    
+    color:#9A9A9A;
+    margin-top: 5px;
+    outline: medium none;
+    padding: 5px;
+    
+	
+}
+.input_form2
+{
+	border: 1 dashed #AA9999;
+    border-radius: 5px;
+    font-size: 14px;
+    
+    height: 30px;
+    color:#9A9A9A;
+    margin-top: 5px;
+    outline: medium none;
+    padding: 5px;
+    width: 150px;
+}
+#categ_add , #categ_file
+{
+	display:none;
+	border-radius:5px !important;
+	border: 2px solid #DDDDDD;
 }

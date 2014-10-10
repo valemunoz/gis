@@ -27,7 +27,7 @@ if($_REQUEST['tipo']==1)
 	if(count($data)>0)
 	{
 		?>
-		<br><h5>Direcciones Encontradas: <?=count($data);?></h5>
+		<br><h5><strong>Direcciones Encontradas(<?=count($data);?>)</strong> </h5>
 		<ul id="list">			
 		<?php
 		foreach($data as $dat)
@@ -52,7 +52,7 @@ if($_REQUEST['tipo']==1)
 	if(count($data)>0)
 	{
 		?>
-		<br><div id="results">Direcciones Encontradas: <?=count($data);?></div>
+		<br><h5><strong>Direcciones Encontradas(<?=count($data);?>)</strong></h5>
 		<ul id="list">			
 		<?php
 		foreach($data as $dat)
@@ -76,7 +76,7 @@ if($_REQUEST['tipo']==1)
 		
 		$data=getDireccionGoogle($_REQUEST['consulta']);
 		?>
-		<br><div id="results">Direcciones Encontradas: <?=count($data);?></div>
+		<br><h5><strong>Direcciones Encontradas(<?=count($data);?>)</strong></h5>
 		<ul id="list">
 			
 		<?php
@@ -119,7 +119,7 @@ if($_REQUEST['tipo']==1)
 {
 	?>
 	<br>
-	<img class="img_control_off" name="manz" id="manz" title="Activar Manzanas" src="images/img/iconos/manzana.png" height=32px class="menu_boton" onclick="javascript:accionManzana();">
+	<img class="img_control_off" name="manz" id="manz" title="Informacion Demografica por manzanas" src="images/img/iconos/manzana.png" height=32px class="menu_boton" onclick="javascript:accionManzana();">
 	
 	<?php
 	if(in_array("4", $_SESSION['us_apps']))
@@ -182,9 +182,9 @@ if($_REQUEST['tipo']==1)
 		{
   		?>
   		
-  		<img class="img_control_off" name="img_<?=$ii?>" id="img_<?=$ii?>" title="Activar <?=$dat[1]?>" src="<?=$dat[5]?>" height=32px class="menu_boton" onclick="checkServ(<?=$dat[2]?>,'<?=$dat[5]?>',<?=$ii?>);">
+  		<img class="img_control_off" name="img_<?=$ii?>" id="img_<?=$ii?>" title="Activar <?=$dat[1]?>" src="images/<?=$dat[5]?>" height=32px class="menu_boton" onclick="checkServ(<?=$dat[2]?>,'<?=$dat[5]?>',<?=$ii?>);">
   		<script>
-  			addServicios('<?=$dat[1]?>',<?=$ii?>,<?=$dat[2]?>,'<?=$dat[5]?>');
+  			addServicios('<?=$dat[1]?>',<?=$ii?>,<?=$dat[2]?>,'images/<?=$dat[5]?>');
   		</script>
   		<?PHP
   		$ii++;
@@ -343,7 +343,7 @@ if($_REQUEST['tipo']==1)
 	</script>
 </br>
 	<div>
-		<b>Comercios-Servicios Encontrados: <?=count($data)?></b>
+		<b>Comercios-Servicios Encontrados(<?=count($data)?>)</b>
 	</div>
 </br>
 	<ul>
@@ -475,7 +475,7 @@ elseif($_REQUEST['tipo']==11)// Lugares
 	}
 	//print_r($data);
 	?>
-		<br><h5>Lugares Encontrados: <?=count($data);?></h5>
+		<br><h5><strong>Lugares Encontrados(<?=count($data);?>)</strong></h5>
 		<ul id="list">			
 		<?php
 		foreach($data as $dat)
@@ -773,10 +773,10 @@ foreach($poligonos as $ii => $pol)
 	$texto .="<div class=txt_mody2><a href=javascript:activarModifyPoligono(".$ii.");>Modificar Poligono</a> | <a href=javascript:desactivarPoligonoModify(".$ii.");terminoModificacion(".$ii.",".$pol[0].");>Guardar</a></div>";
 	
 	?>
-<li class="lista_poli"><a href="javascript:addPoligonoModify('<?=$pol[1]?>','<?=$texto?>',CM_myStyles3,<?=$ii?>);extendPoligonosDraw(<?=$ii?>);"><?=ucwords(strtolower($pol[6]))?></br>
+<li class="lista_poli"><a class=link_dir href="javascript:addPoligonoModify('<?=$pol[1]?>','<?=$texto?>',CM_myStyles3,<?=$ii?>);extendPoligonosDraw(<?=$ii?>);"><?=ucwords(strtolower($pol[6]))?></br>
 	<span class=tit3>Fecha:<?=$pol[7]?></span></a> <span class=img_lista>
-		<img onclick="addPoligonoModify('<?=$pol[1]?>','<?=$texto?>',CM_myStyles3,<?=$ii?>);extendPoligonosDraw(<?=$ii?>);activarModifyPoligono(<?=$ii?>);" class=menu_boton src='images/iconos/modify.png' title='Modificar poligono'>
-		<img onclick='deletePoligono(<?=$pol[0]?>);' class=menu_boton src='images/iconos/delete.png' title='Eliminar poligono'></span></li>
+		<i onclick="addPoligonoModify('<?=$pol[1]?>','<?=$texto?>',CM_myStyles3,<?=$ii?>);extendPoligonosDraw(<?=$ii?>);activarModifyPoligono(<?=$ii?>);" class="glyphicon glyphicon-edit" title='Modificar poligono'></i>
+	<span>   </span><i class='glyphicon glyphicon-remove' onclick='deletePoligono(<?=$pol[0]?>);' class=menu_boton src='images/iconos/delete.png' title='Eliminar poligono'></i></li>
 	<?php
 }
 ?>		
@@ -1024,7 +1024,7 @@ foreach($poligonos as $ii => $pol)
 						foreach($poligonos as $pol)
 						{
 							?>
-							<option value="<?=$pol[0]?>"><?=ucwords($pol[6])?></option>
+							<option value="<?=$pol[0]?>"><?=ucwords(substr($pol[6],0,10))?></option>
 							<?php
 						}
 						?>
@@ -1063,13 +1063,8 @@ foreach($poligonos as $ii => $pol)
 	$puntos=getServiciosClienteQR(" and id_cliente=".$_SESSION['us_id_cli']." and estado=0 order by id_gis_categoria");
 	//print_r($poligonos);
 	?>
-	<h4>Nueva Categoria</h4>
-	<hr>
-	<div id='categ_add'>
-		
-		<span><h5>Nombre :<input class=input_form type="text" id="nom_cat" name="nom_cat"><input type="button" value="Guardar" onclick="saveCat(1);"></h5></span>
-		
-	</div>
+	
+
 	<hr>
 	<h4>Filtro de b&uacute;squedas</h4>
 	<hr>
@@ -1083,17 +1078,24 @@ foreach($poligonos as $ii => $pol)
 		<?php
 		}
 		?>
-	</select><img src="images/iconos/see.png" class=img_simple onclick="loadMisPuntosId();" title="Ver Puntos"><img src="images/iconos/add.png" onclick="loadAddCateg();" class=img_simple title="Nueva Categoria"><img src="images/iconos/delete.png" class=img_simple onclick="saveCat(2);" title="Eliminar Puntos"> <img src="images/iconos/archivo.png" onclick="loadAddCategFile();" class=img_simple title="Carga Archivo"> </h5>
+	</select><span>   </span><i  class="glyphicon glyphicon-eye-open mano" onclick="loadMisPuntosId();" title="Ver Puntos"></i><span>   </span> <i class="glyphicon glyphicon-plus mano" onclick="loadAddCateg();" title="Nuevo"></i><span>   </span><i class="glyphicon glyphicon-remove mano"  title="Eliminar" onclick="saveCat(2);" ></i><span>   </span><i class=" glyphicon glyphicon-upload mano" onclick="loadAddCategFile();" title="Carga Archivo"></i> </h5>
 <h5><input type="checkbox" name="all_marker" id="all_marker" value="">Mostrar en el mapa</h5>
-<hr>
-	<h4>Carga por Archivos</h4>
-	<hr>
+	<div id='categ_add'>
+	<h5>Nueva Categoria</h5>
+	<hr>	
+		<span><h5>Nombre :<input class=input_form type="text" id="nom_cat" name="nom_cat"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="saveCat(1);">Guardar</button> </h5></span>
+		
+	</div>
 		<div id='categ_file'>
+	
+	<h5>Carga por Archivos</h5>
+	<hr>
 		<form enctype="multipart/form-data" class="formulario">
  						
  						
  						<input type="file" name="i_file" id="i_file" value="">
- 						<input name="boton" type="button" id="but_check" name="but_check" onclick="LoadFileCateg();" value="Subir">
+ 						
+ 						<button type="button" class="btn btn-default" data-dismiss="modal" id="but_check" name="but_check" onclick="LoadFileCateg();">Subir</button>
  						
 				   </br><span class="txt_ejemplo">Debe seleccionar una categoria antes de subir el archivo.</span>
 				   	
@@ -1136,7 +1138,7 @@ foreach($puntos as $ii => $pol)
 		<?php
 	}
 	?>
-<li class="lista_poli"> <a href="javascript:addMarcadorServicio('images/iconos/point_fav.png','35,35',<?=$pol[6]?>,<?=$pol[7]?>,'<?=$texto?>');moverCentro(<?=$pol[6]?>,<?=$pol[7]?>,16);"><?=ucwords($pol[1])?></a><img class=menu_boton src='images/iconos/delete.png' onclick='upServicioCli(<?=$pol[0]?>,<?=$pol[8]?>);' title='Eliminar Punto'><img class=menu_boton src='images/iconos/modify.png' onclick='editPtoLoad(<?=$ii?>,<?=$pol[0]?>);' title='Editar Punto'></span></li>
+<li class="lista_poli"> <a class="link_dir" href="javascript:addMarcadorServicio('images/iconos/point_fav.png','35,35',<?=$pol[6]?>,<?=$pol[7]?>,'<?=$texto?>');moverCentro(<?=$pol[6]?>,<?=$pol[7]?>,16);"><?=ucwords($pol[1])?>  </a><i class='glyphicon glyphicon-remove mano' onclick='upServicioCli(<?=$pol[0]?>,<?=$pol[8]?>);' title='Eliminar Punto'></i><span>   </span><i class='glyphicon glyphicon-edit mano'  onclick='editPtoLoad(<?=$ii?>,<?=$pol[0]?>);' title='Editar Punto'> </i></span></li>
 	<div id="ptoEdit_<?=$ii?>" class=box1 >
 		
 	</div>
@@ -1215,7 +1217,7 @@ if($_REQUEST['ver']==1)
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="button" value="Guardar" onclick="saveMarcador(<?=$puntos[0][7]?>,<?=$puntos[0][6]?>,<?=$ii?>,<?=$_REQUEST['id_serv']?>);"></td>
+				<td><button type="button" class="btn btn-default" data-dismiss="modal" onclick="saveMarcador(<?=$puntos[0][7]?>,<?=$puntos[0][6]?>,<?=$ii?>,<?=$_REQUEST['id_serv']?>);">Guardar</button></td>
 			</tr>
 			
 		</table>
@@ -1280,7 +1282,7 @@ if($_REQUEST['ver']==1)
 	{
 	?>
 	
-                    <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Direcci&oacuten <span
+                    <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon glyphicon-ok"></i> Direcci&oacuten <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         
@@ -1294,7 +1296,7 @@ if($_REQUEST['opc']==1)
 	{
 	?>
 	
-                    <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Lugar <span
+                    <a href="" data-toggle="dropdown"><i class="glyphicon glyphicon glyphicon-ok"></i> Lugar <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="javascript:opcBus(0);">Direcci&oacute;n</a></li>
