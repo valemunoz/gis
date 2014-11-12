@@ -652,12 +652,13 @@ function activarMarcador(nom_cat,id_cat)
 		);
     map.addControl(selectControl);
     /*selectControl.activate();*/
+    /*selectControl.activate();*/
    
     drag=new OpenLayers.Control.DragFeature(sprintersLayer,{    
      'onComplete':moveDrag});
     map.addControl(drag);
     /**/
-		addMarcadorVector(CM_centro.lon,CM_centro.lat,CM_texto,"images/iconos/marker2.png",30,30);;
+		addMarcadorVector(CM_centro.lon,CM_centro.lat,CM_texto,"images/iconos/marker2.png",30,30);
 		activarDrag();
 		
 	}else

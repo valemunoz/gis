@@ -93,7 +93,7 @@ function init(CM_div)
      /*Poligonos draw*/
      
     			vlayer = new OpenLayers.Layer.Vector( "Editable",{displayInLayerSwitcher:false} );
-    			//vlayer.setZIndex(zindex_vector);
+    			//vlayer.setZIndex(zindex_vector;
           control=new OpenLayers.Control.DrawFeature(vlayer,
                                 OpenLayers.Handler.Polygon);
                        
@@ -120,7 +120,7 @@ function init(CM_div)
      
      /*Poligonos almacenar*/
     			vector_almacenaje = new OpenLayers.Layer.Vector( "Editable",{displayInLayerSwitcher:false} );
-    			//vector_almacenaje.setZIndex(zindex_vector);
+    			//vector_almacenaje.setZIndex(7000);
           control_al=new OpenLayers.Control.DrawFeature(vector_almacenaje,
                                 OpenLayers.Handler.Polygon);
                              
@@ -310,6 +310,7 @@ var select = new OpenLayers.Control.SelectFeature(
                 }; 
 	CM_vectorLineas = new OpenLayers.Layer.Vector("Poligonos", {displayInLayerSwitcher:false,styleMap: CM_myStyles});
 	map.addLayer(CM_vectorLineas);
+	/*CM_vectorLineas.setZIndex(zindex_vector);*/
 		
 	CM_selectCtrl = new OpenLayers.Control.SelectFeature(
 	CM_vectorLineas,
@@ -823,6 +824,8 @@ function click_vector()
 
 function loadManzanas()
 {
+
+
   showMensaje("Cargando...<br><img src='images/load_central.gif'>");
 	var AM_exten = getExtencion();
 	//alert("query.php?tipo=6&lon="+AM_exten.left+"&lati="+AM_exten.bottom+"&lond="+AM_exten.right+"&lats="+AM_exten.top+"&id="+CM_id_servicio_gis+"&icono="+CM_icono+"&id_serv="+CM_id+"");
@@ -861,6 +864,7 @@ function accionManzana()
 			elm.className="img_control_off";
 			deletePoligonos();
 			CM_manzana=false;
+			CM_selectCtrl.deactivate();	
 		}
 		
 }
@@ -1272,6 +1276,7 @@ function displayDataCluster(event) {
             
             function activarPoligono()
             {
+            	
             	if(CM_polygon_draw)
             	{
             		CM_polygon_draw=false;
@@ -1282,15 +1287,25 @@ function displayDataCluster(event) {
             		
             	}else
             		{
-            			
+            			eliminarPoligonosDraw();
+	
+	
+	EliminarPoligonoDraw();
+            			elm = document.getElementById("manz");
+            			elm.className="img_control_off";
+									deletePoligonos();
+									CM_manzana=false;
+									CM_selectCtrl.deactivate();	
             			//elm = document.getElementById("pd");
 									//elm.className="img_control_on";
+									limpiarPuntosDrag();
+									selectControl.deactivate();									
             			CM_polygon_draw=true;
             			CM_selectCtrl2.activate();
-            			control.activate();
-            			selectControl.deactivate();
-            			limpiarPuntosDrag();
-            			//vlayer.setZIndex(zindex_vector);   
+            			control.activate();    
+            			
+            			
+            			
             				
             		}
             }
@@ -1579,7 +1594,7 @@ function addPoligonoModify(CM_datos,CM_datos_texto,CM_stilo,CM_id)
      /**/
   vectores_arr[CM_id].addFeatures([polygonFeature]);
 	
-	//CM_vectorLineas.setZIndex(zindex_vector);
+	
 	  if(CM_datos_texto!="")
   {
   	CM_selectCtrl3[CM_id].activate();	
@@ -1712,6 +1727,7 @@ var datas;
 }
 function activarDrag()
 {
+	
 	selectControl.activate();
 	drag.activate();
 }
